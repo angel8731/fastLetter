@@ -17,23 +17,24 @@ $('#node').fastLetter({
     selectedCbk : function(){	    //选择节点回调
         console.log('选择节点')
     },
-    cancelSelectCbk : function(){   //取消选择的回调
+    cancelSelectCbk : function(){	//取消选择的回调
         console.log('取消选择回调');
     }
 });
 `
+
 >对外暴露的接口
-`	
-	show方法 - 组件的显示
-	$('#node').fastLetter('show'); 
 
-	hide方法 - 组件的隐藏
-	$('#node').fastLetter('hide'); 
+`
+show方法 - 组件的显示
+$('#node').fastLetter('show'); 
 
-	getItems方法 - 获取选中项
-	$('#node').fastLetter('getItems'); 
+hide方法 - 组件的隐藏
+$('#node').fastLetter('hide'); 
 
-	setItems方法 - 设置选中项，进行修改时常用
-	$('#node').fastLetter('setItems');
-	
+getItems方法 - 获取选中项
+$('#node').fastLetter('getItems'); 
+
+setItems方法 - 设置选中项，进行修改时常用
+$('#node').fastLetter('setItems');
 `
