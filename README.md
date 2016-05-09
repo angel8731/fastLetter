@@ -3,9 +3,7 @@
 
 ![fastLetter](https://github.com/angel8731/fastLetter/blob/master/example/fastLetter.png)
 
->代码片段
-
-
+> 代码片段
 `
 $('#node').fastLetter({
     data : dataSource,				//数据源
@@ -24,7 +22,7 @@ $('#node').fastLetter({
 });
 `
 
->对外暴露的接口
+> 对外暴露的接口
 `
 show方法 - 组件的显示
 $('#node').fastLetter('show'); 
