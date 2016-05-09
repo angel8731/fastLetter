@@ -4,7 +4,7 @@
 ![fastLetter](https://github.com/angel8731/fastLetter/blob/master/example/fastLetter.png)
 
 > 代码片段
-`
+```
 $('#node').fastLetter({
     data : dataSource,				//数据源
     showCode : "cityCode",			//组件的key
@@ -20,10 +20,11 @@ $('#node').fastLetter({
         console.log('取消选择回调');
     }
 });
-`
+```
 
 > 对外暴露的接口
-`
+
+```
 show方法 - 组件的显示
 $('#node').fastLetter('show'); 
 
@@ -35,4 +36,4 @@ $('#node').fastLetter('getItems');
 
 setItems方法 - 设置选中项，进行修改时常用
 $('#node').fastLetter('setItems');
-`
+```
