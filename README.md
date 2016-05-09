@@ -4,6 +4,7 @@
 ![fastLetter](https://github.com/angel8731/fastLetter/blob/master/example/fastLetter.png)
 
 >代码片段
+
 `
 $('#node').fastLetter({
     data : dataSource,				//数据源
