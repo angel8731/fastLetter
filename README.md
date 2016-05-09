@@ -5,8 +5,8 @@
 
 >代码片段
 
-`
-$('#node').fastLetter({
+
+`$('#node').fastLetter({
     data : dataSource,				//数据源
     showCode : "cityCode",			//组件的key
     showValue : "cityName",			//组件的value
@@ -20,13 +20,12 @@ $('#node').fastLetter({
     cancelSelectCbk : function(){	//取消选择的回调
         console.log('取消选择回调');
     }
-});
-`
+});`
 
 >对外暴露的接口
 
-`
-show方法 - 组件的显示
+
+`show方法 - 组件的显示
 $('#node').fastLetter('show'); 
 
 hide方法 - 组件的隐藏
@@ -36,5 +35,4 @@ getItems方法 - 获取选中项
 $('#node').fastLetter('getItems'); 
 
 setItems方法 - 设置选中项，进行修改时常用
-$('#node').fastLetter('setItems');
-`
+$('#node').fastLetter('setItems');`
