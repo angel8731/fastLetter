@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../dest/css/fastLetter.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="J_show">
+        展开
+        <span id="J_cityList"></span>
+    </div>
+</body>
+<script src="jquery1x.js" type="application/javascript"></script>
+<script src="../dest/js/fastLetter.js" type="application/javascript"></script>
+<script>
+    $(function(){
+        var dataSource = [{"cityCode":"aershan","cityName":"阿尔山"},{"cityCode":"akesu","cityName":"阿克苏"},{"cityCode":"aletai","cityName":"阿勒泰"},{"cityCode":"anqing","cityName":"安庆"},{"cityCode":"anshan","cityName":"鞍山"},{"cityCode":"anshun","cityName":"安顺"},{"cityCode":"baise","cityName":"百色"},{"cityCode":"baotou","cityName":"包头"},{"cityCode":"bayannaoer","cityName":"巴彦淖尔"},{"cityCode":"beihai","cityName":"北海"},{"cityCode":"beijing_city","cityName":"北京"},{"cityCode":"bole_city","cityName":"博乐"},{"cityCode":"changde","cityName":"常德"},{"cityCode":"changdu","cityName":"昌都"},{"cityCode":"changzhi","cityName":"长治"},{"cityCode":"changzhou","cityName":"常州"},{"cityCode":"chengdu","cityName":"成都"},{"cityCode":"chifeng","cityName":"赤峰"},{"cityCode":"daqing","cityName":"大庆"},{"cityCode":"dazhou","cityName":"达州"},{"cityCode":"dongying","cityName":"东营"},{"cityCode":"dunhuang","cityName":"敦煌"},{"cityCode":"eerduosi","cityName":"鄂尔多斯"},{"cityCode":"enshi","cityName":"恩施"},{"cityCode":"foshan","cityName":"佛山"},{"cityCode":"fuyang_anhui","cityName":"阜阳"},{"cityCode":"ganzhou","cityName":"赣州"},{"cityCode":"geermu","cityName":"格尔木"},{"cityCode":"guangyuan","cityName":"广元"},{"cityCode":"guyuan","cityName":"固原"},{"cityCode":"hami","cityName":"哈密"},{"cityCode":"handan","cityName":"邯郸"},{"cityCode":"hefei","cityName":"合肥"},{"cityCode":"heihe","cityName":"黑河"},{"cityCode":"huaian","cityName":"淮安"},{"cityCode":"huaihua","cityName":"怀化"},{"cityCode":"huangshan","cityName":"黄山"},{"cityCode":"jiamusi","cityName":"佳木斯"},{"cityCode":"jiayuguan","cityName":"嘉峪关"},{"cityCode":"jieyang","cityName":"揭阳"},{"cityCode":"jinan","cityName":"济南"},{"cityCode":"jinchang","cityName":"金昌"},{"cityCode":"jingdezhen","cityName":"景德镇"},{"cityCode":"jinggangshan","cityName":"井冈山"},{"cityCode":"jinhua","cityName":"金华"},{"cityCode":"jining","cityName":"济宁"},{"cityCode":"jiujiang","cityName":"九江"},{"cityCode":"jixi","cityName":"鸡西"},{"cityCode":"kangding","cityName":"康定"},{"cityCode":"kashi","cityName":"喀什"},{"cityCode":"kelamayi","cityName":"克拉玛依"},{"cityCode":"kuerle","cityName":"库尔勒"},{"cityCode":"lanzhou","cityName":"兰州"},{"cityCode":"lasa","cityName":"拉萨"},{"cityCode":"lianyungang","cityName":"连云港"},{"cityCode":"linyi","cityName":"临沂"},{"cityCode":"linzhi","cityName":"林芝"},{"cityCode":"liuzhou","cityName":"柳州"},{"cityCode":"luoyang","cityName":"洛阳"},{"cityCode":"luzhou","cityName":"泸州"},{"cityCode":"mangshi","cityName":"芒市"},{"cityCode":"manzhouli","cityName":"满洲里"},{"cityCode":"meizhou","cityName":"梅州"},{"cityCode":"mianyang","cityName":"绵阳"},{"cityCode":"mohe","cityName":"漠河"},{"cityCode":"mudanjiang","cityName":"牡丹江"},{"cityCode":"nalati","cityName":"那拉提"},{"cityCode":"nanchang","cityName":"南昌"},{"cityCode":"nanchong","cityName":"南充"},{"cityCode":"nantong","cityName":"南通"},{"cityCode":"nanyang","cityName":"南阳"},{"cityCode":"panzhihua","cityName":"攀枝花"},{"cityCode":"qianjiang_chongqing","cityName":"黔江"},{"cityCode":"qingyang","cityName":"庆阳"},{"cityCode":"qinhuangdao","cityName":"秦皇岛"},{"cityCode":"qiqihaer","cityName":"齐齐哈尔"},{"cityCode":"quanzhou","cityName":"泉州"},{"cityCode":"quzhou","cityName":"衢州"},{"cityCode":"rikaze","cityName":"日喀则"},{"cityCode":"sanya","cityName":"三亚"},{"cityCode":"shanghai_city","cityName":""},{"cityCode":"shijiazhuang","cityName":"石家庄"},{"cityCode":"suzhou_jiangsu","cityName":"苏州"},{"cityCode":"tacheng","cityName":"塔城"},{"cityCode":"taizhou_zhejiang","cityName":"台州"},{"cityCode":"tangshan","cityName":"唐山"},{"cityCode":"tengchong","cityName":"腾冲"},{"cityCode":"tianshui","cityName":"天水"},{"cityCode":"tongliao","cityName":"通辽"},{"cityCode":"tongren","cityName":"铜仁"},{"cityCode":"wanzhou","cityName":"万州"},{"cityCode":"weifang","cityName":"潍坊"},{"cityCode":"weihai","cityName":"威海"},{"cityCode":"wenzhou","cityName":"温州"},{"cityCode":"wuhai","cityName":"乌海"},{"cityCode":"wulanhaote","cityName":"乌兰浩特"},{"cityCode":"wulumuqi","cityName":"乌鲁木齐"},{"cityCode":"wuyishan","cityName":"武夷山"},{"cityCode":"wuzhou","cityName":"梧州"},{"cityCode":"xian","cityName":"西安"},{"cityCode":"xiangyang","cityName":"襄阳"},{"cityCode":"xianyang","cityName":"咸阳"},{"cityCode":"xichang","cityName":"西昌"},{"cityCode":"xilinhaote","cityName":"锡林浩特"},{"cityCode":"xingyi","cityName":"兴义"},{"cityCode":"xining","cityName":"西宁"},{"cityCode":"xuzhou","cityName":"徐州"},{"cityCode":"yanan","cityName":"延安"},{"cityCode":"yancheng","cityName":"盐城"},{"cityCode":"yanji","cityName":"延吉"},{"cityCode":"yantai","cityName":"烟台"},{"cityCode":"yibin","cityName":"宜宾"},{"cityCode":"yichang","cityName":"宜昌"},{"cityCode":"yichun_heilongjiang","cityName":"伊春"},{"cityCode":"yinchuan","cityName":"银川"},{"cityCode":"yining","cityName":"伊宁"},{"cityCode":"yiwu","cityName":"义乌"},{"cityCode":"yongzhou","cityName":"永州"},{"cityCode":"yulin_shanxi_02","cityName":"榆林"},{"cityCode":"yuncheng","cityName":"运城"},{"cityCode":"yushu","cityName":"玉树"},{"cityCode":"zhangjiajie","cityName":"张家界"},{"cityCode":"zhangye","cityName":"张掖"},{"cityCode":"zhanjiang","cityName":"湛江"},{"cityCode":"zhongwei","cityName":"中卫"},{"cityCode":"zhuhai","cityName":"珠海"}];
+
+        $('#J_cityList').fastLetter({
+            data : dataSource,
+            showCode : "cityCode",
+            showValue : "cityName",
+            groupKey : "cityCode",
+            selectAllCbk : function(){
+                console.log('全选');
+            },
+            selectedCbk : function(){
+                console.log('选择节点')
+            },
+            cancelSelectCbk : function(){
+                console.log('取消选择回调');
+            }
+        });
+
+        $('#J_show').on('click',function(){
+            $('#J_cityList').fastLetter('show');
+        })
+    })
+</script>
+</html>

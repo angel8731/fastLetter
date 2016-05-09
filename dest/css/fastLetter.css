@@ -1,0 +1,220 @@
+/* 按照字母筛选 */
+.fastLetter {
+    position: absolute;
+    zoom: 1;
+    z-index: 999;
+    display: none;
+}
+.fastLetter .red {
+    color: #dd5a43!important;
+}
+.fastLetter .fastLetter-main {
+    background: #fff;
+    border: 1px solid #cccccc;
+}
+.fastLetter .fastLetter-main .uiblock {
+    font-size: 12px;
+    position: relative;
+    width: 600px;
+    overflow: auto;
+}
+.fastLetter .fastLetter-main .uiblock .block-close {
+    display: block;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    height: 11px;
+    width: 11px;
+    cursor: pointer;
+    background: url(http://simg1.qunarzz.com/site/images/flight/flight_v1/i_qbox.png) no-repeat scroll -85px -20px;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected {
+    height: auto;
+    padding: 0 30px 0 15px;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selectedTitle {
+    font-size: 12px;
+    float: left;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selectedTitle .checkall {
+    padding-top: 0px;
+    margin-right: 10px;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selected-block {
+    position: relative;
+    float: left;
+    white-space: inherit;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selected-block .selected-value {
+    margin-right: 2px;
+    float: left;
+    padding: 0 0 0 8px;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selected-block .selected-value:hover {
+    color: #2690c0;
+    cursor: pointer;
+}
+.fastLetter .fastLetter-main .uiblock .hasSelected .selected-block .selected-close:hover {
+    cursor: pointer;
+}
+.fastLetter .fastLetter-main .uiblock .letters {
+    height: 26px;
+    padding: 5px 10px 0;
+    background: #f0fafc;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle {
+    float: left;
+    display: inline;
+    height: 25px;
+    margin-right: 15px;
+    padding: 0 5px;
+    border-bottom: 1px solid #f0fafc;
+    line-height: 22px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle:hover {
+    color: #2690c0;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle.active {
+    border-bottom-color: #28b3d4;
+    color: #2690c0;
+    position: relative;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle.active .i1,
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle.active .i2 {
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    background: #28b3d4;
+    width: 6px;
+    height: 2px;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterTitle.active .i2 {
+    width: 2px;
+    bottom: 2px;
+    margin-left: -1px;
+    bottom: 2px;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch {
+    float: right;
+    margin-top: -5px;
+    position: relative;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .searchInput {
+    height: 23px;
+    padding: 3px;
+    width: 150px;
+    line-height: 30px;
+    margin-right: 5px;
+    border: 1px solid #DAE7EA;
+    font-size: 12px;
+    font-weight: 100;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter {
+    position: absolute;
+    background: #f9f9f9;
+    width: 97%;
+    left: 0;
+    z-index: 100;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter .autocompleter-list {
+    box-shadow: inset 0px 0px 0px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    box-sizing: border-box;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter .autocompleter-list .autocompleter-item {
+    padding: 3px 5px;
+    color: #444444;
+    font-size: 14px;
+    cursor: pointer;
+    border: 0px;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter .autocompleter-list .autocompleter-item:hover {
+    background-color: #E6E6E6;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter .autocompleter-list .autocompleter-item-selected {
+    background-color: #E6F1F3;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter-show {
+    display: block;
+}
+.fastLetter .fastLetter-main .uiblock .letters .letterSearch .autocompleter-hide {
+    display: none;
+}
+.fastLetter .fastLetter-main .uiblock .contentList {
+    padding: 10px 0;
+    overflow: auto;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent {
+    display: none;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters {
+    margin: 0;
+    padding: 0 5px 0 0;
+    height: 1%;
+    float: left;
+    width: 100%;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterHeader {
+    float: left;
+    display: block;
+    width: 30px;
+    height: 22px;
+    padding-left: 18px;
+    color: #666;
+    line-height: 22px;
+    white-space: nowrap;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody {
+    margin-left: 48px;
+    zoom: 1;
+    _margin-left: 0;
+    line-height: 1.42857143;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul {
+    margin: 0;
+    padding: 0;
+    height: 1%;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul li {
+    float: left;
+    width: 24%!important;
+    height: 22px;
+    margin-right: 0.5%!important;
+    margin-bottom: 3px;
+    text-align: left;
+    line-height: 22px;
+    overflow: hidden;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul li a {
+    display: block;
+    padding: 0 5px;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul li a:hover {
+    text-decoration: none;
+    background: #E9EAEA;
+    color: #000000;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul li a.activeNode {
+    text-decoration: none;
+    background: #5396A9;
+    color: #ffffff;
+}
+.fastLetter .fastLetter-main .uiblock .contentList .letterContent .eachletters .letterBody ul .focusHigh {
+    text-decoration: none;
+    background: #ffff00;
+    color: #000000;
+}
