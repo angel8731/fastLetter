@@ -22,7 +22,8 @@
                 cancelSelectNode : $.noop(), //取消节点的回调
                 hasSelected : [], //已选
                 hasSelectedKey : '',//已选的key
-                hasSelectedValue : ''//已选的value
+                hasSelectedValue : '',//已选的value
+                lineNum : 4
             },
             ignoredKeyCode = [9, 13, 17, 19, 20, 27, 33, 34, 35, 36, 37, 39, 44, 92, 113, 114, 115, 118, 119, 120, 122, 123, 144, 145];
         function FastLetter(element,options){
@@ -93,13 +94,13 @@
             renderHasSelected : function(repeatRender){
                 var _this = this,
                     selectedUI = '';
-                _this.formatHasSelect();
+                //_this.formatHasSelect();
                 if(_this.hasSelected.length>0){
                     var i = 0,len = _this.hasSelected.length;
                     for(;i<len;i++){
                         selectedUI += '<div class="selected-block">' +
                         '<span class="selected-value" data-code="'+_this.hasSelected[i].code+'">'+_this.hasSelected[i].value+'</span>' +
-                        '<span class="ace-icon fa fa-times bigger-110 red selected-close" data-code="'+_this.hasSelected[i].code+'">x</span>' +
+                        '<span class="ace-icon fa fa-times bigger-110 red selected-close" data-code="'+_this.hasSelected[i].code+'"></span>' +
                         '</div>';
                     }
                 }
@@ -144,7 +145,9 @@
                 var _this = this,
                     content = '<div class="contentList">',
                     len = _this.dataStructure.length,
-                    i = 0;
+                    i = 0,
+                    lineNum = _this.settings.lineNum > 10 ? 10 : _this.settings.lineNum;
+
                 for(;i<len;i++){
                     content += '<div class="letterContent" data-panel-id="'+_this.dataStructure[i].name+'" style="'+(i === 0 ? 'display:block;':'')+'">';
                     for(var prop in _this.dataStructure[i].matchData){
@@ -154,7 +157,7 @@
                         var ulLen = _this.dataStructure[i].matchData[prop].length;
                         for(var k=0;k<ulLen;k++){
 
-                            content += '<li><a class="js-hotcitylist" data-code="'+_this.dataStructure[i].matchData[prop][k][_this.settings.showCode]+'" data-value="'+_this.dataStructure[i].matchData[prop][k][_this.settings.showValue]+'" href="javascript:;">'+_this.dataStructure[i].matchData[prop][k][_this.settings.showValue]+'</a></li>';
+                            content += '<li style="width:'+((100/lineNum)-1)+'%!important"><a class="js-hotcitylist" data-code="'+_this.dataStructure[i].matchData[prop][k][_this.settings.showCode]+'" data-value="'+_this.dataStructure[i].matchData[prop][k][_this.settings.showValue]+'" href="javascript:;">'+_this.dataStructure[i].matchData[prop][k][_this.settings.showValue]+'</a></li>';
                         }
                         content += '</ul></dd></dl>';
                     }
@@ -181,6 +184,7 @@
                     i = 0,
                     len = _this.hasSelected.length,
                     $elem = $(_this.element);
+                    console.log(_this.hasSelected);
                 for(;i<len;i++){
                     $elem.find('.js-hotcitylist').each(function(idx,el){
                         var code = $(el).data('code');
@@ -604,10 +608,26 @@
                 this.settings.hasSelectedValue = options.hasSelectedValue;
                 //重新渲染选中节点
                 this.renderHasSelected(true);
+            },
+            //重置
+            reset : function(that){
+                $(this.element).find('.fastLetter').fadeOut("slow").find('.searchInput').val('');
+                $(this.element).find('.autocompleter').addClass('autocompleter-hide').removeClass('autocompleter-show');
+                this.settings.hasSelected = this.hasSelected = [];
+                this.renderHasSelected(true);
+                $(this.element).find('.js-hotcitylist').each(function(index,elem){
+                    $(elem).removeClass('activeNode').removeClass('focusHigh').data('selected',false);
+                });
+            },
+            //销毁
+            destroy : function(that){
+              $(this.element).data('fastLetter',null);
+              $(this.element).find('.fastLetter').remove()
+              $(this.element).off('click,blur,keyup,keydown,focus',this.reset);
             }
          }
         //暴露对外的接口，使用全局变量
-        var interfaceForOuter = ['getItems','setItems'];
+        var interfaceForOuter = ['getItems','setItems','reset','destroy'];
 
         $.fn[pluginName] = function(options,params){
             if(typeof options === 'string'){
@@ -632,4 +652,3 @@
     })
 
 }(window, document);
-
