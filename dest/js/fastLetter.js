@@ -66,12 +66,17 @@
         FastLetter.prototype = {
             //初始化组件
             init : function(){
+                //没有数据返回
+                if( !this.settings.data ){
+                    return;
+                }
                 this.formatDatas();
                 this.create();
                 this.bindEvent();
             },
             //创建组件
             create : function(){
+
                 var fastLetterUI = '<div class="fastLetter">' +
                     '<div class="fastLetter-main">' +
                     '<div class="uiblock">' +
@@ -83,7 +88,9 @@
                     '<div class="hasSelectedNode">';
                 fastLetterUI += this.renderHasSelected();
                 fastLetterUI += '</div></div>';
+                fastLetterUI += '<div class="letters">';
                 fastLetterUI += this.renderLetter();
+                fastLetterUI += '</div>';
                 fastLetterUI += this.renderContent();
                 fastLetterUI += '</div></div></div>';
                 this.render(fastLetterUI);
@@ -94,19 +101,19 @@
             renderHasSelected : function(repeatRender){
                 var _this = this,
                     selectedUI = '';
-                //_this.formatHasSelect();
-                if(_this.hasSelected.length>0){
-                    var i = 0,len = _this.hasSelected.length;
+
+                if(this.hasSelected.length>0){
+                    var i = 0,len = this.hasSelected.length;
                     for(;i<len;i++){
                         selectedUI += '<div class="selected-block">' +
-                        '<span class="selected-value" data-code="'+_this.hasSelected[i].code+'">'+_this.hasSelected[i].value+'</span>' +
-                        '<span class="ace-icon fa fa-times bigger-110 red selected-close" data-code="'+_this.hasSelected[i].code+'"></span>' +
+                        '<span class="selected-value" data-code="'+this.hasSelected[i].code+'">'+this.hasSelected[i].value+'</span>' +
+                        '<span class="ace-icon fa fa-times bigger-110 red selected-close" data-code="'+this.hasSelected[i].code+'"></span>' +
                         '</div>';
                     }
                 }
                 if(repeatRender){
-                    $(_this.element).find('.hasSelectedNode').html(selectedUI);
-                    _this.renderContentSelectedNode();
+                    $(this.element).find('.hasSelectedNode').html(selectedUI);
+                    this.renderContentSelectedNode();
                     return;
                 }
                 return selectedUI;
@@ -117,7 +124,7 @@
                     letters = '',
                     len = _this.dataStructure.length,
                     i = 0;
-                letters += '<div class="letters">';
+                letters += '';
                 for(;i<len;i++){
                     if(i==0){
                         letters += '<div class="letterTitle active" data-tab-id="'+_this.dataStructure[i].name+'">'+_this.dataStructure[i].name+'<i class="i1"></i><i class="i2"></i></div>';
@@ -137,7 +144,6 @@
                 '</ul>' +
                 '</div>' +
                 '</div>';
-                letters += '</div>';
                 return letters;
             },
             //渲染组件content
@@ -184,7 +190,7 @@
                     i = 0,
                     len = _this.hasSelected.length,
                     $elem = $(_this.element);
-                    console.log(_this.hasSelected);
+
                 for(;i<len;i++){
                     $elem.find('.js-hotcitylist').each(function(idx,el){
                         var code = $(el).data('code');
@@ -271,7 +277,6 @@
                     $elem = $(evt.currentTarget),
                     code = $elem.data('code'),
                     value = $elem.data('value');
-
                 if($elem.data('selected')){
                     return;
                 }
@@ -281,7 +286,8 @@
                     code : code,
                     value : value
                 });
-                $(_this.element).find('.hasSelectedNode').html(_this.renderHasSelected());
+
+                $(_this.element).find('.hasSelectedNode').html(_this.renderHasSelected(true));
                 //触发回调
                 $.isFunction(_this.settings.selectedCbk) ? _this.settings.selectedCbk() : "";
 
@@ -521,12 +527,19 @@
                 _this.searchSelectedValue = '';
             },
             //格式化数据，组装成按字母表的形式的数据
-            formatDatas : function(){
+            formatDatas : function(isNeedReset){
                 var _this = this,
                     originData = this.settings.data,
-                    len = originData.length, i = 0, item={},
+                    len = originData.length, item={},
                     letters, tempAlphaArr=[], tempObj, resultArr=[];
-                for(;i<len;i++){
+                if(isNeedReset){
+                    //重置数据结构
+                    for(var i = 0;i<this.dataStructure.length;i++){
+                        this.dataStructure[i].matchData = {};
+                    }
+                }
+
+                for(var i = 0;i<len;i++){
                     tempObj = originData[i];
                     //判断groupKey是否存在，若存在截取第一个字母为key
                     letters = tempObj&&tempObj[this.settings.groupKey] ? tempObj[this.settings.groupKey].substr(0,1) : "";
@@ -535,20 +548,19 @@
 
             },
             filterData : function(letters,item){
-                var _this = this,
-                    i = 0,
-                    len = _this.dataStructure.length,
+                var i = 0,
+                    len = this.dataStructure.length,
                     letters = letters.toUpperCase();
                 for(;i<len;i++){
-                    var tempArr = _this.splitData(_this.dataStructure[i].name);
+                    var tempArr = this.splitData(this.dataStructure[i].name);
 
                     if($.inArray(letters.toUpperCase()+'',tempArr) != -1){
 
-                        if(_this.dataStructure[i].matchData[letters] == undefined){
-                            _this.dataStructure[i].matchData[letters] = [];
-                            _this.dataStructure[i].matchData[letters].push(item);
+                        if(this.dataStructure[i].matchData[letters] == undefined){
+                            this.dataStructure[i].matchData[letters] = [];
+                            this.dataStructure[i].matchData[letters].push(item);
                         }else{
-                            _this.dataStructure[i].matchData[letters].push(item);
+                            this.dataStructure[i].matchData[letters].push(item);
                         }
                     }
                 }
@@ -609,6 +621,18 @@
                 //重新渲染选中节点
                 this.renderHasSelected(true);
             },
+            //更新数据
+            update : function(params){
+                var data = Array.prototype.slice.call(arguments),
+                    i = 0,
+                    len = this.dataStructure.length;
+                this.settings.data = data[0];
+                this.formatDatas(true);
+                this.hasSelected = [];
+                $(this.element).find('.contentList').html(this.renderContent());
+                $(this.element).find('.hasSelectedNode').html('');
+                $(this.element).find('.letters').html(this.renderLetter());
+            },
             //重置
             reset : function(that){
                 $(this.element).find('.fastLetter').fadeOut("slow").find('.searchInput').val('');
@@ -621,22 +645,29 @@
             },
             //销毁
             destroy : function(that){
-              $(this.element).data('fastLetter',null);
-              $(this.element).find('.fastLetter').remove()
-              $(this.element).off('click,blur,keyup,keydown,focus',this.reset);
+               //清空已选中节点
+               this.hasSelected = [];
+               //删除绑定到data属性的实例
+               $(this.element).removeData('fastLetter');
+               //删除组件节点元素
+               $(this.element).find('.fastLetter').remove()
+              // //解除组件所绑定的各种事件
+               $(this.element).off('click blur keyup keydown focus',this.reset);
             }
          }
         //暴露对外的接口，使用全局变量
-        var interfaceForOuter = ['getItems','setItems','reset','destroy'];
+        var interfaceForOuter = ['getItems','setItems','reset','destroy','update'];
 
         $.fn[pluginName] = function(options,params){
+
             if(typeof options === 'string'){
                 var instance = $(this).data('fastLetter');
                 if(instance instanceof FastLetter && typeof instance[options] === 'function'){
                     var args = Array.prototype.slice.call(arguments);
                     //区分外部接口调用
                     if($.inArray(options,interfaceForOuter)>-1){
-                        return instance[options].apply(instance,$.extend(args,params));
+
+                        return instance[options].call(instance,params);
                     }else{
                         instance[options].apply(this,args);
                     }
@@ -644,8 +675,10 @@
             }else{
                 return this.each(function(){
                     //this代表当前元素对象
+
                     var FL = new FastLetter(this,options);
                     $(this).data('fastLetter',FL);
+
                 });
             }
         }
