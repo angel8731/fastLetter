@@ -27,14 +27,19 @@ $('#node').fastLetter({
 
 ```
 show方法 - 组件的显示
-$('#node').fastLetter('show'); 
+$('#node').fastLetter('show');
 
 hide方法 - 组件的隐藏
-$('#node').fastLetter('hide'); 
+$('#node').fastLetter('hide');
 
 getItems方法 - 获取选中项
-$('#node').fastLetter('getItems'); 
+$('#node').fastLetter('getItems');
 
 setItems方法 - 设置选中项，进行修改时常用
 $('#node').fastLetter('setItems');
+
+update方法 - 当获取到新数据的时候进行替换
+params - newData 需要替换的新数据 
+$('#node').fastLetter('update',newData);
+
 ```

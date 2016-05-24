@@ -101,6 +101,7 @@
             renderHasSelected : function(repeatRender){
                 var _this = this,
                     selectedUI = '';
+                this.formatHasSelect();
 
                 if(this.hasSelected.length>0){
                     var i = 0,len = this.hasSelected.length;
@@ -588,13 +589,16 @@
                     len = _this.hasSelected.length;
                 for(;i<len;i++){
                     //判断结构是否正确
+
                     if(_this.hasSelected[i].code == undefined || _this.hasSelected[i].value == undefined){
                         for(var key in _this.hasSelected[i]){
+
                             _this.hasSelected[i].code = _this.hasSelected[i][_this.settings.hasSelectedKey];
                             _this.hasSelected[i].value = _this.hasSelected[i][_this.settings.hasSelectedValue];
                         }
                     }
                 }
+
             },
             //获取已选数据
             getItems : function(that){
@@ -614,10 +618,10 @@
                 return returnArr;
             },
             //设置选中数据
-            setItems : function(that,options){
-                this.hasSelected = options.hasSelected;
-                this.settings.hasSelectedKey = options.hasSelectedKey;
-                this.settings.hasSelectedValue = options.hasSelectedValue;
+            setItems : function(params){
+                this.hasSelected = params.hasSelected;
+                this.settings.hasSelectedKey = params.hasSelectedKey;
+                this.settings.hasSelectedValue = params.hasSelectedValue;
                 //重新渲染选中节点
                 this.renderHasSelected(true);
             },
@@ -626,12 +630,20 @@
                 var data = Array.prototype.slice.call(arguments),
                     i = 0,
                     len = this.dataStructure.length;
-                this.settings.data = data[0];
-                this.formatDatas(true);
-                this.hasSelected = [];
-                $(this.element).find('.contentList').html(this.renderContent());
-                $(this.element).find('.hasSelectedNode').html('');
-                $(this.element).find('.letters').html(this.renderLetter());
+                try{
+                    this.settings.data = data[0];
+                    if(this.settings.data && this.settings.data.length > 0){
+                        this.formatDatas(true);
+                        this.hasSelected = [];
+                        $(this.element).find('.contentList').html(this.renderContent());
+                        $(this.element).find('.hasSelectedNode').html('');
+                        $(this.element).find('.letters').html(this.renderLetter());
+                    }else{
+                        console.warn('[fastLetter warn]: 组件数据不能为空');
+                    }
+                }catch(e){
+                    console.warn('[fastLetter warn]:'+e);
+                }
             },
             //重置
             reset : function(that){
